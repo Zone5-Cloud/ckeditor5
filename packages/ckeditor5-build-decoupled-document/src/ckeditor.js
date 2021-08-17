@@ -40,6 +40,9 @@ import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
+import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
+import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat';
+import Emoji from '@wwalc/ckeditor5-emoji/src/emoji'
 
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
@@ -78,7 +81,10 @@ DecoupledEditor.builtinPlugins = [
 	PasteFromOffice,
 	Table,
 	TableToolbar,
-	TextTransformation
+	TextTransformation,
+	HorizontalLine,
+	RemoveFormat,
+	Emoji,
 ];
 
 // Editor configuration.
@@ -112,9 +118,20 @@ DecoupledEditor.defaultConfig = {
 			'mediaEmbed',
 			'|',
 			'undo',
-			'redo'
-		]
+			'redo',
+			'horizontalLine',
+			'removeFormat',
+			'emoji'
+		],
 	},
+	emoji: [
+		{ name: 'smile', text: '😀' },
+		{ name: 'wink', text: '😉' },
+		{ name: 'cool', text: '😎' },
+		{ name: 'surprise', text: '😮' },
+		{ name: 'confusion', text: '😕' },
+		{ name: 'crying', text: '😢' },
+	],
 	image: {
 		resizeUnit: 'px',
 		toolbar: [
@@ -123,16 +140,12 @@ DecoupledEditor.defaultConfig = {
 			'imageStyle:breakText',
 			'|',
 			'toggleImageCaption',
-			'imageTextAlternative'
-		]
+			'imageTextAlternative',
+		],
 	},
 	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
+		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'en',
 };

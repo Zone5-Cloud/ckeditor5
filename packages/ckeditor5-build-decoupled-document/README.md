@@ -11,66 +11,20 @@ The document editor build for CKEditor 5, featuring the decoupled UI editor impl
 
 ## Documentation
 
-See:
+The reason this entire project is here is because we had to import a couple of plugins that are not part of the "out of the box" project. If we dont put this here and we need to add a plugin down the road then the current plugins will be erased and not to be added again. 
 
-* [Installation](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installation.html) for how to install this package and what it contains.
-* [Basic API](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/basic-api.html) for how to create an editor and interact with it.
-* [Configuration](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/configuration.html) for how to configure the editor.
-* [Creating custom builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html) for how to customize the build (configure and rebuild the editor bundle).
+To add a new plugin to the existing ckeditor:
+1. install new plugin ie. npm install --save-dev @ckeditor/ckeditor5-alignment
+2. add "import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';" to src/ckeditor.js
+3. add "Alignment" to "DecoupledEditor.builtinPlugins" array.
+4. add "alignment" to "DecoupledEditor.defaultConfig" object under toolbarr >> items array.
+5. run "npm run build"
 
-## Quick start
+It should create a new set of files in the build directory and your component should point to the build directory as well.
+For complete directions refer to https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installing-plugins.html
 
-First, install the build from npm:
 
-```bash
-npm install --save @ckeditor/ckeditor5-build-decoupled-document
-```
 
-And use it in your website:
-
-```html
-<div id="toolbar-container"></div>
-<div id="editor">
-	<p>This is the editor content.</p>
-</div>
-<script src="./node_modules/@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor.js"></script>
-<script>
-	DecoupledEditor
-		.create( document.querySelector( '#editor' ) )
-		.then( editor => {
-			// The toolbar needs to be explicitly appended.
-			document.querySelector( '#toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
-
-			window.editor = editor;
-		} )
-		.catch( error => {
-			console.error( 'There was a problem initializing the editor.', error );
-		} );
-</script>
-```
-
-Or in your JavaScript application:
-
-```js
-import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-
-// Or using the CommonJS version:
-// const DecoupledEditor = require( '@ckeditor/ckeditor5-build-decoupled-document' );
-
-DecoupledEditor
-	.create( document.querySelector( '#editor' ) )
-	.then( editor => {
-		// The toolbar needs to be explicitly appended.
-		document.querySelector( '#toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
-
-		window.editor = editor;
-	} )
-	.catch( error => {
-		console.error( 'There was a problem initializing the editor.', error );
-	} );
-```
-
-**Note:** If you are planning to integrate CKEditor 5 deep into your application, it is actually more convenient and recommended to install and import the source modules directly (like it happens in `ckeditor.js`). Read more in the [Advanced setup guide](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/advanced-setup.html).
 
 ## License
 
